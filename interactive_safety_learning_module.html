@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บทเรียนสำเร็จรูป: การป้องกันอุบัติเหตุงานเชื่อมโลหะ (ง 30285)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font: Prompt -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        pastel: {
+                            blue: '#E3F2FD',
+                            darkblue: '#1976D2',
+                            teal: '#E0F2F1',
+                            darkteal: '#00796B',
+                            amber: '#FFF8E1',
+                            darkamber: '#F57F17',
+                            rose: '#FFEBEE',
+                            darkrose: '#C62828',
+                            purple: '#F3E5F5',
+                            darkpurple: '#7B1FA2',
+                            gray: '#F8FAFC',
+                            slate: '#334155'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #F1F5F9;
+            color: #1E293B;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hotspot-pulse {
+            animation: pulse-ring 2s infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.15); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+        .no-select {
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-12">
+
+    <!-- Header Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur shadow-sm border-b border-slate-200">
+        <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 text-white flex items-center justify-center font-bold text-lg shadow-md">
+                    <i class="fa-solid to-shield-halved"></i>
+                </div>
+                <div>
+                    <h1 class="text-sm font-bold text-slate-800 leading-tight">งานเชื่อมโลหะ (ง 30285)</h1>
+                    <p class="text-[11px] text-slate-500">แผนการเรียนรู้ที่ 2: ความปลอดภัย</p>
+                </div>
+            </div>
+            <button onclick="confirmResetApp()" title="ล้างข้อมูลเริ่มใหม่" class="text-xs px-2.5 py-1.5 rounded-lg border border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 flex items-center space-x-1 font-medium transition">
+                <i class="fa-solid fa-rotate-right text-[10px]"></i>
+                <span>รีเซ็ต</span>
+            </button>
+        </div>
+        <!-- Global Progress Bar -->
+        <div class="w-full bg-slate-100 h-1.5">
+            <div id="global-progress" class="bg-gradient-to-r from-blue-500 to-emerald-500 h-1.5 w-0 transition-all duration-500"></div>
+        </div>
+    </header>
+
+    <!-- Main Mobile Container -->
+    <main class="max-w-md mx-auto px-4 pt-4 space-y-4">
+
+        <!-- Banner & Course Info Card -->
+        <div class="bg-gradient-to-br from-indigo-900 to-slate-900 text-white rounded-2xl p-4 shadow-lg relative overflow-hidden">
+            <div class="absolute -right-4 -bottom-4 opacity-10 text-8xl">
+                <i class="fa-solid fa-fire-burner"></i>
+            </div>
+            <div class="flex items-center justify-between mb-2">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                    ชั้นมัธยมศึกษาตอนปลาย (4 ชม.)
+                </span>
+                <span class="text-[11px] text-indigo-200">สัดส่วนคะแนน K=1.00 | S=1.00</span>
+            </div>
+            <h2 class="text-lg font-bold text-white leading-snug">การป้องกันอุบัติเหตุและการเตรียมอุปกรณ์เบื้องต้น</h2>
+            <p class="text-xs text-indigo-200 mt-1">บทเรียนสำเร็จรูปพร้อมภารกิจจำลองสถานการณ์และความปลอดภัย 85:15</p>
+            <div class="mt-3 pt-3 border-t border-indigo-800/80 flex justify-between text-[11px] text-indigo-300">
+                <span><i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i>เกณฑ์ผ่าน: ร้อยละ 80 (1.60/2.00)</span>
+                <button onclick="toggleCourseInfoModal()" class="underline hover:text-white">รายละเอียดรายวิชา</button>
+            </div>
+        </div>
+
+        <!-- Student Registration Section -->
+        <section id="student-reg-card" class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200">
+            <div class="flex items-center space-x-2 mb-3">
+                <i class="fa-solid fa-id-card text-blue-600"></i>
+                <h3 class="text-sm font-bold text-slate-800">ข้อมูลผู้เรียน (สำหรับออกใบรับรอง)</h3>
+            </div>
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-medium text-slate-600 mb-1">ชื่อ-นามสกุล <span class="text-rose-500">*</span></label>
+                    <input type="text" id="reg-name" onchange="saveStudentProfile()" placeholder="เช่น นายสมชาย ชาญเชื่อม" class="w-full text-xs px-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1">เลขที่ <span class="text-rose-500">*</span></label>
+                        <input type="number" id="reg-no" onchange="saveStudentProfile()" placeholder="เช่น 5" class="w-full text-xs px-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1">ชั้นเรียน <span class="text-rose-500">*</span></label>
+                        <input type="text" id="reg-class" onchange="saveStudentProfile()" placeholder="เช่น ม.6/1" class="w-full text-xs px-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <div class="flex rounded-xl bg-slate-200 p-1 space-x-1 text-xs font-medium text-slate-600">
+            <button onclick="switchTab('tab-theory')" id="btn-tab-theory" class="flex-1 py-2 rounded-lg bg-white text-blue-700 shadow-sm transition">1. ทฤษฎีความปลอดภัย</button>
+            <button onclick="switchTab('tab-sim')" id="btn-tab-sim" class="flex-1 py-2 rounded-lg hover:text-slate-900 transition">2. ภารกิจ (S)</button>
+            <button onclick="switchTab('tab-quiz')" id="btn-tab-quiz" class="flex-1 py-2 rounded-lg hover:text-slate-900 transition">3. ทดสอบ (K)</button>
+            <button onclick="switchTab('tab-report')" id="btn-tab-report" class="flex-1 py-2 rounded-lg hover:text-slate-900 transition">4. สรุปผล</button>
+        </div>
+
+        <!-- TAB 1: THEORY (ใบงานที่ 2.1) -->
+        <div id="tab-theory" class="tab-content space-y-4">
+            <!-- Concept Card 1: 85:15 Rule -->
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-3">
+                <div class="flex items-center space-x-2 text-indigo-700 font-bold text-sm">
+                    <span class="w-6 h-6 rounded-lg bg-indigo-100 flex items-center justify-center text-xs">1</span>
+                    <h4>กฎความปลอดภัย 85:15 (สาเหตุของการเกิดอุบัติเหตุ)</h4>
+                </div>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    จากการศึกษาสถิติอุบัติเหตุในโรงงานและสถานศึกษา พบว่าการเกิดอุบัติเหตุในงานเชื่อมโลหะมีสาเหตุหลัก 2 ประการ:
+                </p>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-3">
+                        <div class="text-amber-800 font-bold text-lg mb-1">85%</div>
+                        <div class="font-semibold text-amber-900 mb-1">การกระทำที่ไม่ปลอดภัย (Unsafe Act)</div>
+                        <p class="text-[11px] text-amber-700">เกิดจากตัวบุคคล เช่น ไม่สวม PPE, ประมาท, หยอกล้อกันขณะเชื่อม, ไม่ตรวจสอบอุปกรณ์</p>
+                    </div>
+                    <div class="bg-blue-50 border border-blue-200 rounded-xl p-3">
+                        <div class="text-blue-800 font-bold text-lg mb-1">15%</div>
+                        <div class="font-semibold text-blue-900 mb-1">สภาพการณ์ที่ไม่ปลอดภัย (Unsafe Condition)</div>
+                        <p class="text-[11px] text-blue-700">เกิดจากสิ่งแวดล้อม เช่น สายไฟตู้เชื่อมฉนวนฉีกขาด, พื้นโรงฝึกงานเปียกชื้น, พัดลมระบายอากาศเสีย</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept Card 2: Correct PPE Sequence -->
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-3">
+                <div class="flex items-center space-x-2 text-indigo-700 font-bold text-sm">
+                    <span class="w-6 h-6 rounded-lg bg-indigo-100 flex items-center justify-center text-xs">2</span>
+                    <h4>ลำดับและมาตรฐานการสวม PPE งานเชื่อม SMAW</h4>
+                </div>
+                <ul class="space-y-2 text-xs text-slate-600">
+                    <li class="flex items-start space-x-2 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                        <i class="fa-solid fa-graduation-cap text-indigo-500 mt-0.5"></i>
+                        <div>
+                            <strong class="text-slate-800">1. ศีรษะและใบหน้า:</strong> สวมหมวกนิรภัยหรือหมวกผ้าครอบผม หน้ากากเชื่อมแบบมือถือ/ครอบศีรษะ โดยประกอบกระจกใสประกบด้านนอกและด้านในของ **กระจกกรองแสง (Filter Lens) เบอร์ 10–12** เพื่อป้องกันรังสี UV และแสงจ้า
+                        </div>
+                    </li>
+                    <li class="flex items-start space-x-2 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                        <i class="fa-solid fa-shirt text-indigo-500 mt-0.5"></i>
+                        <div>
+                            <strong class="text-slate-800">2. ลำตัวและแขน:</strong> สวมเสื้อช่างแขนยาวผ้าหนา (ผ้าฝ้ายหรือผ้ายีนส์) ทับด้วย **เอี๊ยมหนังและปลอกแขนหนัง** เพื่อกันสะเก็ดไฟ (Spatter) ความร้อนสูง
+                        </div>
+                    </li>
+                    <li class="flex items-start space-x-2 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                        <i class="fa-solid fa-hand-back-fist text-indigo-500 mt-0.5"></i>
+                        <div>
+                            <strong class="text-slate-800">3. มือและมือจับ:</strong> สวม **ถุงมือหนังสำหรับงานเชื่อม** ชนิดยาว ห้ามใช้ถุงมือผ้าธรรมดาเพราะติดไฟง่ายและทนความร้อนไม่ได้
+                        </div>
+                    </li>
+                    <li class="flex items-start space-x-2 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                        <i class="fa-solid fa-shoe-prints text-indigo-500 mt-0.5"></i>
+                        <div>
+                            <strong class="text-slate-800">4. เท้าและขา:</strong> สวม **รองเท้านิรภัย (Safety Shoes) หัวเหล็ก** หุ้มข้อ พร้อมปรับ **ขากางเกงให้คลุมขอบรองเท้าเสมอ** เพื่อป้องกันเม็ดสะเก็ดไฟกระเด็นตกใส่ภายในรองเท้า
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Concept Card 3: Hazards & Electrical Safety -->
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-3">
+                <div class="flex items-center space-x-2 text-indigo-700 font-bold text-sm">
+                    <span class="w-6 h-6 rounded-lg bg-indigo-100 flex items-center justify-center text-xs">3</span>
+                    <h4>หลักไฟฟ้าและอันตรายในสถานีงานเชื่อม</h4>
+                </div>
+                <div class="bg-rose-50 border border-rose-200 rounded-xl p-3 text-xs text-rose-900 space-y-1.5">
+                    <div class="font-bold flex items-center space-x-1">
+                        <i class="fa-solid fa-triangle-exclamation text-rose-600"></i>
+                        <span>อันตรายจากไฟฟ้าดูด (Electric Shock):</span>
+                    </div>
+                    <p class="text-rose-800 text-[11px] leading-relaxed">
+                        แรงดันไฟฟ้าขณะยังไม่เกิดการอาร์ก (Open Circuit Voltage: OCV) มีค่าราว 50–80 Volts ซึ่งเพียงพอที่จะทำอันตรายถึงชีวิตหากร่างกายเปียกชื้นและสัมผัสส่วนที่มีกระแสไฟโดยตรง การหนีบสายดินไม่แน่นจะเพิ่มความต้านทานไฟฟ้า เกิดความร้อนสูงจนสายละลายช็อตได้
+                    </p>
+                </div>
+            </div>
+
+            <button onclick="switchTab('tab-sim')" class="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold text-xs shadow-md hover:opacity-95 transition flex items-center justify-center space-x-2">
+                <span>เข้าสู่ภารกิจจำลองสถานการณ์ (ด้าน S)</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <!-- TAB 2: SIMULATION (ด้าน S - 9 Raw Points -> 1.00 Net) -->
+        <div id="tab-sim" class="tab-content space-y-4 hidden">
+            <!-- Mission Info Bar -->
+            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-3 flex items-center justify-between text-xs">
+                <div>
+                    <span class="font-bold text-emerald-900">คะแนนภารกิจปฏิบัติ (S):</span>
+                    <span id="sim-score-display" class="text-emerald-700 font-bold ml-1">0 / 9 คะแนนดิบ</span>
+                </div>
+                <span class="text-[11px] bg-emerald-200/60 text-emerald-800 px-2 py-0.5 rounded-full font-medium">คิดเฉพาะการกดครั้งแรก</span>
+            </div>
+
+            <!-- MISSION 1: PPE SELECTION (4 items) -->
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-3">
+                <div class="border-b pb-2">
+                    <span class="text-[10px] font-bold tracking-wide uppercase px-2 py-0.5 bg-blue-100 text-blue-800 rounded">ภารกิจที่ 1</span>
+                    <h4 class="text-xs font-bold text-slate-800 mt-1">การเลือกสวมใส่อุปกรณ์ป้องกันอันตรายส่วนบุคคล (PPE) - 4 ข้อ</h4>
+                    <p class="text-[11px] text-slate-500">เลือกคำตอบที่ถูกต้องที่สุดตามหลักวิศวกรรมความปลอดภัย</p>
+                </div>
+
+                <div id="ppe-scenarios-container" class="space-y-4">
+                    <!-- Dynamic PPE Scenarios Rendered Here -->
+                </div>
+            </div>
+
+            <!-- MISSION 2: INTERACTIVE SVG WORKSTATION HOTSPOTS (5 items) -->
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-3">
+                <div class="border-b pb-2">
+                    <span class="text-[10px] font-bold tracking-wide uppercase px-2 py-0.5 bg-purple-100 text-purple-800 rounded">ภารกิจที่ 2 (ใบงาน 2.2)</span>
+                    <h4 class="text-xs font-bold text-slate-800 mt-1">การตรวจหาสภาพการณ์และพฤติกรรมไม่ปลอดภัย 5 จุด</h4>
+                    <p class="text-[11px] text-slate-500">แตะที่จุดเสี่ยงอันตราย (วงกลมสีแดงกะพริบ) บนภาพสถานีงานเชื่อมเพื่อประเมิน</p>
+                </div>
+
+                <!-- SVG Interactive Canvas Wrapper -->
+                <div class="relative w-full rounded-xl overflow-hidden border border-slate-300 bg-slate-900">
+                    <svg viewBox="0 0 800 500" class="w-full h-auto select-none">
+                        <!-- Background Workshop Wall -->
+                        <rect x="0" y="0" width="800" height="350" fill="#1E293B" />
+                        <line x1="0" y1="350" x2="800" y2="350" stroke="#475569" stroke-width="4" />
+                        <!-- Floor -->
+                        <rect x="0" y="350" width="800" height="150" fill="#334155" />
+                        <!-- Safety Zone Line on Floor -->
+                        <path d="M 50 480 L 750 480" stroke="#F59E0B" stroke-width="6" stroke-dasharray="15 10" />
+
+                        <!-- Element 1: Welding Machine (Right side) -->
+                        <g id="svg-welding-machine">
+                            <rect x="580" y="160" width="170" height="230" rx="12" fill="#0284C7" stroke="#0369A1" stroke-width="4" />
+                            <rect x="600" y="180" width="130" height="50" rx="6" fill="#0F172A" />
+                            <!-- Display -->
+                            <text x="615" y="212" fill="#38BDF8" font-family="monospace" font-size="22" font-weight="bold">120 A</text>
+                            <!-- Terminals -->
+                            <circle cx="630" cy="330" r="16" fill="#1E293B" stroke="#475569" stroke-width="3" />
+                            <circle cx="700" cy="330" r="16" fill="#1E293B" stroke="#475569" stroke-width="3" />
+                            <text x="625" y="360" fill="#94A3B8" font-size="12" font-weight="bold">+</text>
+                            <text x="697" y="360" fill="#94A3B8" font-size="12" font-weight="bold">-</text>
+                            
+                            <!-- HOTSPOT 1: Power Switch Left ON -->
+                            <rect id="switch-graphic" x="650" y="250" width="30" height="50" rx="4" fill="#EF4444" />
+                            <circle cx="665" cy="265" r="8" fill="#FFFFFF" />
+                            <text x="642" y="243" fill="#F87171" font-size="11" font-weight="bold">POWER ON</text>
+                        </g>
+
+                        <!-- Element 2: Steel Workbench (Center-Left) -->
+                        <g id="svg-workbench">
+                            <rect x="180" y="280" width="330" height="15" fill="#64748B" />
+                            <rect x="190" y="295" width="20" height="145" fill="#475569" />
+                            <rect x="480" y="295" width="20" height="145" fill="#475569" />
+                            <rect x="170" y="435" width="350" height="10" fill="#334155" />
+                        </g>
+
+                        <!-- HOTSPOT 2: Flammable Solvent Can nearby (< 3m) -->
+                        <g id="svg-flammable-can">
+                            <rect x="80" y="340" width="65" height="95" rx="6" fill="#DC2626" stroke="#991B1B" stroke-width="2" />
+                            <polygon points="112.5,360 92,395 133,395" fill="#F59E0B" />
+                            <text x="106" y="388" fill="#1E293B" font-size="16" font-weight="bold">!</text>
+                            <text x="88" y="420" fill="#FFFFFF" font-size="10" font-weight="bold">THINNER</text>
+                        </g>
+
+                        <!-- HOTSPOT 3: Damaged Cable with exposed copper -->
+                        <g id="svg-damaged-cable">
+                            <path d="M 630 330 Q 500 460 380 430" fill="none" stroke="#0F172A" stroke-width="12" stroke-linecap="round" />
+                            <!-- Exposed Copper Crack -->
+                            <path d="M 490 415 L 515 418" stroke="#F59E0B" stroke-width="8" />
+                            <circle cx="502" cy="416" r="10" fill="none" stroke="#EF4444" stroke-width="2" stroke-dasharray="3 3" />
+                        </g>
+
+                        <!-- HOTSPOT 4: Ground Clamp with Loose Cable/Spring -->
+                        <g id="svg-ground-clamp">
+                            <path d="M 700 330 Q 600 480 340 430 Q 260 410 240 290" fill="none" stroke="#0F172A" stroke-width="10" stroke-linecap="round" />
+                            <!-- Loose Clamp on Workbench edge -->
+                            <rect x="225" y="270" width="30" height="20" rx="3" fill="#94A3B8" stroke="#475569" stroke-width="2" />
+                            <path d="M 230 270 L 220 255" stroke="#E2E8F0" stroke-width="4" />
+                        </g>
+
+                        <!-- HOTSPOT 5: Slag Hammer loose handle + Electrode Holder on Bench -->
+                        <g id="svg-holder-hammer">
+                            <!-- Electrode Holder resting directly on steel bench -->
+                            <rect x="300" y="268" width="80" height="12" rx="4" fill="#DC2626" transform="rotate(-10 300 268)" />
+                            <rect x="375" y="260" width="35" height="8" fill="#F59E0B" transform="rotate(-10 300 268)" />
+                            <!-- Slag Hammer -->
+                            <rect x="410" y="272" width="60" height="6" fill="#78350F" />
+                            <polygon points="465,263 480,275 465,287" fill="#475569" />
+                        </g>
+
+                        <!-- HOTSPOT BUTTON OVERLAYS (Interactive Pulsing Targets) -->
+                        <!-- Hotspot 1: Switch -->
+                        <g class="cursor-pointer" onclick="openHotspotModal(1)">
+                            <circle cx="665" cy="275" r="22" fill="#EF4444" fill-opacity="0.3" class="hotspot-pulse" />
+                            <circle cx="665" cy="275" r="12" fill="#EF4444" stroke="#FFFFFF" stroke-width="2" />
+                            <text x="661" y="279" fill="#FFFFFF" font-size="12" font-weight="bold">1</text>
+                        </g>
+                        <!-- Hotspot 2: Thinner Can -->
+                        <g class="cursor-pointer" onclick="openHotspotModal(2)">
+                            <circle cx="112" cy="385" r="22" fill="#EF4444" fill-opacity="0.3" class="hotspot-pulse" />
+                            <circle cx="112" cy="385" r="12" fill="#EF4444" stroke="#FFFFFF" stroke-width="2" />
+                            <text x="108" y="389" fill="#FFFFFF" font-size="12" font-weight="bold">2</text>
+                        </g>
+                        <!-- Hotspot 3: Damaged Cable -->
+                        <g class="cursor-pointer" onclick="openHotspotModal(3)">
+                            <circle cx="502" cy="416" r="22" fill="#EF4444" fill-opacity="0.3" class="hotspot-pulse" />
+                            <circle cx="502" cy="416" r="12" fill="#EF4444" stroke="#FFFFFF" stroke-width="2" />
+                            <text x="498" y="420" fill="#FFFFFF" font-size="12" font-weight="bold">3</text>
+                        </g>
+                        <!-- Hotspot 4: Ground Clamp -->
+                        <g class="cursor-pointer" onclick="openHotspotModal(4)">
+                            <circle cx="235" cy="275" r="22" fill="#EF4444" fill-opacity="0.3" class="hotspot-pulse" />
+                            <circle cx="235" cy="275" r="12" fill="#EF4444" stroke="#FFFFFF" stroke-width="2" />
+                            <text x="231" y="279" fill="#FFFFFF" font-size="12" font-weight="bold">4</text>
+                        </g>
+                        <!-- Hotspot 5: Holder & Hammer -->
+                        <g class="cursor-pointer" onclick="openHotspotModal(5)">
+                            <circle cx="340" cy="265" r="22" fill="#EF4444" fill-opacity="0.3" class="hotspot-pulse" />
+                            <circle cx="340" cy="265" r="12" fill="#EF4444" stroke="#FFFFFF" stroke-width="2" />
+                            <text x="336" y="269" fill="#FFFFFF" font-size="12" font-weight="bold">5</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <!-- Hotspots Completion Checklist -->
+                <div class="grid grid-cols-5 gap-1 pt-2 text-[10px] text-center font-medium">
+                    <div id="hs-status-1" class="py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-400">1.สวิตช์ตู้</div>
+                    <div id="hs-status-2" class="py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-400">2.สารไวไฟ</div>
+                    <div id="hs-status-3" class="py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-400">3.สายเชื่อม</div>
+                    <div id="hs-status-4" class="py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-400">4.สายดิน</div>
+                    <div id="hs-status-5" class="py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-400">5.หัวจับ/ค้อน</div>
+                </div>
+            </div>
+
+            <button onclick="switchTab('tab-quiz')" class="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold text-xs shadow-md hover:opacity-95 transition flex items-center justify-center space-x-2">
+                <span>ทำแบบทดสอบหลังเรียน (ด้าน K)</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <!-- TAB 3: POST-TEST (ด้าน K - 10 Items -> 1.00 Net) -->
+        <div id="tab-quiz" class="tab-content space-y-4 hidden">
+            <div class="bg-amber-50 border border-amber-200 rounded-2xl p-3 text-xs text-amber-900 space-y-1">
+                <div class="font-bold flex items-center space-x-1">
+                    <i class="fa-solid fa-shield-cat text-amber-600"></i>
+                    <span>ระบบแบบทดสอบป้องกันการทุจริต (Anti-Cheating):</span>
+                </div>
+                <p class="text-[11px] text-amber-800">
+                    ข้อสอบและตัวเลือกจะถูกสุ่มลำดับอัตโนมัติ คำตอบเฉลยและเหตุผลประกอบจะแสดงผลหลังจากกดส่งกระดาษคำตอบเท่านั้น
+                </p>
+            </div>
+
+            <!-- Quiz Questions Container -->
+            <div id="quiz-questions-container" class="space-y-4">
+                <!-- Dynamically Rendered Shuffled Questions -->
+            </div>
+
+            <button id="btn-submit-quiz" onclick="submitPostTest()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold text-xs shadow-lg hover:opacity-95 transition flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>ส่งกระดาษคำตอบแบบทดสอบหลังเรียน</span>
+            </button>
+        </div>
+
+        <!-- TAB 4: REPORT & CERTIFICATE -->
+        <div id="tab-report" class="tab-content space-y-4 hidden">
+            <!-- Digital Certificate Card -->
+            <div id="certificate-card" class="bg-gradient-to-b from-white via-slate-50 to-indigo-50/50 rounded-2xl p-5 shadow-md border border-slate-300 relative overflow-hidden text-center space-y-4">
+                <!-- Watermark Background Logo -->
+                <div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+                    <i class="fa-solid fa-award text-9xl text-indigo-900"></i>
+                </div>
+
+                <div class="space-y-1">
+                    <span class="text-[10px] uppercase font-bold tracking-widest text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-200">
+                        ใบรายงานผลการประเมินดิจิทัล
+                    </span>
+                    <h3 class="text-base font-bold text-slate-800 mt-2">วิชา งานเชื่อมโลหะด้วยลวดเชื่อมหุ้มฟลักซ์ (ง 30285)</h3>
+                    <p class="text-xs text-slate-500">แผนการจัดการเรียนรู้ที่ 2: การป้องกันอุบัติเหตุและการเตรียมความพร้อมอุปกรณ์</p>
+                </div>
+
+                <!-- Student Profile Info Box -->
+                <div class="bg-white/80 backdrop-blur rounded-xl p-3 border border-slate-200 text-xs text-slate-700 grid grid-cols-3 gap-2">
+                    <div>
+                        <span class="block text-[10px] text-slate-400">ชื่อ-นามสกุล</span>
+                        <strong id="rep-name" class="text-slate-800">-</strong>
+                    </div>
+                    <div>
+                        <span class="block text-[10px] text-slate-400">เลขที่</span>
+                        <strong id="rep-no" class="text-slate-800">-</strong>
+                    </div>
+                    <div>
+                        <span class="block text-[10px] text-slate-400">ชั้นเรียน</span>
+                        <strong id="rep-class" class="text-slate-800">-</strong>
+                    </div>
+                </div>
+
+                <!-- Scores Breakdown Table -->
+                <div class="bg-white rounded-xl border border-slate-200 overflow-hidden text-xs">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-slate-100 text-slate-700 text-[11px] font-semibold border-b border-slate-200">
+                            <tr>
+                                <th class="p-2.5">ด้านการประเมิน</th>
+                                <th class="p-2.5 text-center">คะแนนดิบ</th>
+                                <th class="p-2.5 text-right">คะแนนสุทธิ</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-slate-600">
+                            <tr>
+                                <td class="p-2.5 font-medium text-slate-800">ด้านความรู้ (K) - แบบทดสอบ 10 ข้อ</td>
+                                <td id="rep-k-raw" class="p-2.5 text-center">0 / 10</td>
+                                <td id="rep-k-net" class="p-2.5 text-right font-bold text-indigo-600">0.00 / 1.00</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5 font-medium text-slate-800">ด้านทักษะปฏิบัติ (S) - ภารกิจจำลอง 9 ข้อ</td>
+                                <td id="rep-s-raw" class="p-2.5 text-center">0 / 9</td>
+                                <td id="rep-s-net" class="p-2.5 text-right font-bold text-teal-600">0.00 / 1.00</td>
+                            </tr>
+                            <tr class="bg-slate-50/80 font-bold text-slate-800 text-xs">
+                                <td class="p-2.5">รวมคะแนนสุทธิ (100%)</td>
+                                <td id="rep-total-percent" class="p-2.5 text-center text-blue-700">0%</td>
+                                <td id="rep-total-net" class="p-2.5 text-right text-emerald-700 text-sm">0.00 / 2.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pass / Fail Badge -->
+                <div id="pass-status-badge" class="py-2.5 px-4 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 bg-slate-100 text-slate-600">
+                    <i class="fa-solid fa-hourglass-start"></i>
+                    <span>ยังทำแบบประเมินไม่ครบถ้วน</span>
+                </div>
+
+                <!-- Affective Domain Self-Assessment (ด้าน A) -->
+                <div class="bg-white rounded-xl p-3 border border-slate-200 text-left space-y-2">
+                    <label class="block text-xs font-bold text-slate-800">
+                        ประเมินตนเองด้านคุณลักษณะและเจตคติความปลอดภัย (ด้าน A):
+                    </label>
+                    <select id="self-eval-a" onchange="saveAffectiveRating()" class="w-full text-xs px-3 py-2 rounded-lg border border-slate-300 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="4">ระดับ 4 (ดีมาก): สวมใส่ PPE ครบถ้วนและปฏิบัติตามกฎความปลอดภัยอย่างเคร่งครัดเสมอ</option>
+                        <option value="3">ระดับ 3 (ดี): สวมใส่ PPE ครบถ้วนเมื่อได้รับคำเตือนหรือแนะนำ</option>
+                        <option value="2">ระดับ 2 (พอใช้): สวมใส่ PPE บางชิ้นแต่ยังมีพฤติกรรมประมาทเป็นบางครั้ง</option>
+                        <option value="1">ระดับ 1 (ปรับปรุง): ถอด PPE ขณะปฏิบัติงานหรือละเลยข้อบังคับความปลอดภัย</option>
+                    </select>
+                </div>
+
+                <!-- Security Verification Hash Card -->
+                <div class="bg-slate-900 text-white rounded-xl p-3 text-left space-y-1.5 relative">
+                    <div class="flex items-center justify-between text-[10px] text-slate-400">
+                        <span><i class="fa-solid fa-lock text-emerald-400 mr-1"></i>รหัสยืนยันผลคะแนน (Security Checksum Hash)</span>
+                        <span id="rep-timestamp" class="text-[9px] text-slate-400">--:--:--</span>
+                    </div>
+                    <div id="rep-hash-code" class="font-mono text-xs text-emerald-400 font-bold tracking-wider break-all select-all">
+                        WELD-SECURITY-WAITING-FOR-COMPLETION
+                    </div>
+                    <p class="text-[9px] text-slate-400 leading-tight">
+                        * รหัสนี้สร้างขึ้นเพื่อป้องกันการแก้ไขตัวเลขคะแนน ครูผู้สอนสามารถนำรหัสนี้ไปตรวจสอบความถูกต้องได้
+                    </p>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="space-y-2 pt-2">
+                    <button onclick="copyResultToClipboard()" class="w-full py-3 rounded-xl bg-emerald-600 text-white font-semibold text-xs shadow-md hover:bg-emerald-700 transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-copy"></i>
+                        <span>คัดลอกข้อความสรุปผลคะแนน (ส่งครูทาง LINE)</span>
+                    </button>
+                    <button onclick="openTeacherVerifyModal()" class="w-full py-2.5 rounded-xl border border-slate-300 bg-white text-slate-700 font-medium text-xs hover:bg-slate-50 transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-user-shield text-indigo-600"></i>
+                        <span>โหมดผู้สอน: ตรวจสอบความถูกต้องของรหัสยืนยัน</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- HOTSPOT INTERACTIVE QUESTION MODAL -->
+    <div id="hotspot-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-4 space-y-3 shadow-2xl border border-slate-200 animate-in fade-in zoom-in duration-200">
+            <div class="flex justify-between items-center border-b pb-2">
+                <span id="hs-modal-title" class="text-xs font-bold text-indigo-700">จุดเสี่ยงที่ X</span>
+                <button onclick="closeHotspotModal()" class="text-slate-400 hover:text-slate-600 text-sm px-2">✕</button>
+            </div>
+            <div id="hs-modal-body" class="space-y-3">
+                <!-- Question content injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TEACHER VERIFICATION MODAL -->
+    <div id="teacher-verify-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-4 space-y-3 shadow-2xl border border-slate-200">
+            <div class="flex justify-between items-center border-b pb-2">
+                <h4 class="text-xs font-bold text-slate-800 flex items-center space-x-1.5">
+                    <i class="fa-solid fa-shield-halved text-indigo-600"></i>
+                    <span>เครื่องมือผู้สอน: ตรวจสอบรหัสยืนยัน</span>
+                </h4>
+                <button onclick="closeTeacherVerifyModal()" class="text-slate-400 hover:text-slate-600 text-sm px-2">✕</button>
+            </div>
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-slate-600 font-medium mb-1">วางข้อความหรือรหัสยืนยันที่นักเรียนส่งมา:</label>
+                    <textarea id="tv-input" rows="3" placeholder="วางข้อความที่คัดลอกจาก LINE หรือรหัส WELD-..." class="w-full p-2.5 rounded-xl border border-slate-300 text-[11px] focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+                </div>
+                <button onclick="verifyTeacherHash()" class="w-full py-2.5 rounded-xl bg-indigo-600 text-white font-semibold shadow hover:bg-indigo-700">
+                    ตรวจสอบความถูกต้องของคะแนน
+                </button>
+                <div id="tv-result" class="hidden p-3 rounded-xl border text-xs font-medium leading-relaxed">
+                    <!-- Result status injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COURSE INFO MODAL -->
+    <div id="course-info-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-4 space-y-3 shadow-2xl border border-slate-200">
+            <div class="flex justify-between items-center border-b pb-2">
+                <h4 class="text-xs font-bold text-slate-800">รายละเอียดโครงสร้างรายวิชา ง 30285</h4>
+                <button onclick="toggleCourseInfoModal()" class="text-slate-400 hover:text-slate-600 text-sm px-2">✕</button>
+            </div>
+            <div class="text-xs text-slate-600 space-y-2 leading-relaxed">
+                <p><strong>ชื่อวิชา:</strong> งานเชื่อมโลหะด้วยลวดเชื่อมหุ้มฟลักซ์ (ง 30285)</p>
+                <p><strong>แผนการจัดการเรียนรู้ที่ 2:</strong> การป้องกันอุบัติเหตุและการเตรียมความพร้อมอุปกรณ์เบื้องต้น (4 ชั่วโมง)</p>
+                <p><strong>สัดส่วนคะแนนประจำแผน:</strong></p>
+                <ul class="list-disc pl-4 space-y-1">
+                    <li>ด้านความรู้ (K): 1.00 คะแนน (วัดผลจากแบบทดสอบหลังเรียน 10 ข้อ)</li>
+                    <li>ด้านทักษะปฏิบัติ (S): 1.00 คะแนน (วัดผลจากภารกิจ PPE และการตรวจสถานีงาน 9 ข้อ)</li>
+                    <li>รวมคะแนนสุทธิ: 2.00 คะแนน</li>
+                    <li>เกณฑ์ผ่านการประเมิน: ร้อยละ 80 (1.60 คะแนนขึ้นไป)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        /* ==========================================================================
+           DATA STRUCTURES & INITIAL STATE
+           ========================================================================== */
+        const SECRET_SALT = "WELD_SMAW_SAFETY_2026_SECURE";
+
+        // PPE Scenarios Data (Mission 1)
+        const ppeData = [
+            {
+                id: 1,
+                title: "1. การเลือกกระจกกรองแสงสำหรับกระแสเชื่อม 100-140 แอมแปร์",
+                question: "ข้อใดเลือกเบอร์กระจกกรองแสงของหน้ากากเชื่อมได้เหมาะสมที่สุด?",
+                options: [
+                    { text: "กระจกใส 2 ชั้นโดยไม่ต้องใส่กระจกดำ", correct: false, reason: "กระจกใสไม่สามารถกรองรังสี UV/IR ได้ ทำให้เกิดอาการตาอักเสบ (Arc Eye)" },
+                    { text: "กระจกกรองแสง เบอร์ 10 - 12 มีกระจกใสประกบหน้าหลัง", correct: true, reason: "ถูกต้อง! แสงจ้าและรังสีจากกระแสเชื่อม 100-140A ต้องใช้กระจกเบอร์ 10-12 พร้อมกระจกใสกันสะเก็ดไฟ" },
+                    { text: "แว่นตากันแดดแฟชั่นสีดำเข้ม", correct: false, reason: "แว่นกันแดดไม่ได้รับมาตรฐานความปลอดภัยในการกรองรังสีจากการอาร์ก" },
+                    { text: "กระจกกรองแสง เบอร์ 5 สำหรับงานตัดแก๊ส", correct: false, reason: "เบอร์ 5 มีความเข้มรังสีต่ำเกินไปสำหรับงานเชื่อมไฟฟ้า SMAW" }
+                ]
+            },
+            {
+                id: 2,
+                title: "2. การแต่งกายบริเวณขากางเกงและรองเท้า",
+                question: "เพื่อป้องกันเม็ดสะเก็ดไฟ (Spatter) ตกใส่เท้า ควรแต่งกายอย่างไร?",
+                options: [
+                    { text: "ยัดปลายขากางเกงใส่ไว้ในขอบรองเท้าท็อปบู๊ต", correct: false, reason: "หากสะเก็ดไฟตกใส่ จะไหลลงไปขังในรองเท้าทำให้ไหม้พองได้" },
+                    { text: "พับขากางเกงขึ้นเหนือนกข้อเท้าเพื่อความคล่องตัว", correct: false, reason: "เปิดพื้นที่ผิวหนังให้สัมผัสรังสี UV และสะเก็ดไฟโดยตรง" },
+                    { text: "ปรับขากางเกงให้คลุมขอบรองเท้านิรภัยหัวเหล็กเสมอ", correct: true, reason: "ถูกต้อง! การให้ขากางเกงคลุมขอบรองเท้าจะช่วยเบี่ยงทิศทางสะเก็ดไฟให้ไหลร่วงลงพื้น" },
+                    { text: "สวมรองเท้าแตะยางขณะเชื่อมเพื่อความสะดวก", correct: false, reason: "ผิดกฎความปลอดภัยร้ายแรง สะเก็ดไฟและวัตถุตกใส่จะเกิดบาดเจ็บทันที" }
+                ]
+            },
+            {
+                id: 3,
+                title: "3. การเลือกถุงมือสำหรับปฏิบัติงานเชื่อมไฟฟ้า",
+                question: "ถุงมือชนิดใดปลอดภัยที่สุดสำหรับการเชื่อมโลหะด้วยลวดเชื่อมหุ้มฟลักซ์?",
+                options: [
+                    { text: "ถุงมือผ้าฝ้ายแบบบาง", correct: false, reason: "ถุงมือผ้าติดไฟง่ายและไม่สามารถกันความร้อนจากการอาร์กได้" },
+                    { text: "ถุงมือหนังสำหรับงานเชื่อมชนิดยาว", correct: true, reason: "ถูกต้อง! หนังทนความร้อน สะเก็ดไฟ และป้องกันกระแสไฟรั่วเบื้องต้นได้ดี" },
+                    { text: "ถุงมือยางแพทย์", correct: false, reason: "ยางจะละลายติดผิวหนังทันทีเมื่อสัมผัสความร้อนสูง" },
+                    { text: "ไม่ต้องสวมถุงมือเพื่อให้จับหัวเชื่อมได้ถนัด", correct: false, reason: "ทำให้มือสัมผัสรังสี UV เกิดผิวหนังไหม้พองและเสี่ยงไฟดูด" }
+                ]
+            },
+            {
+                id: 4,
+                title: "4. การทำความสะอาดสแลก (Slag) หลังการเชื่อม",
+                question: "ขณะใช้ค้อนเคาะสแลกออกจากรอยเชื่อม ต้องสวมอุปกรณ์ใดป้องกัน?",
+                options: [
+                    { text: "สวมแว่นตานิรภัยใส (Safety Glasses) ป้องกันเศษสแลกร้อนกระเด็นเข้าตา", correct: true, reason: "ถูกต้อง! เศษสแลกหลังเชื่อมมีความร้อนสูงและแหลมคม ต้องสวมแว่นใสป้องกันตาเสมอ" },
+                    { text: "ถอดหน้ากากและแว่นตาออกเพื่อจะได้มองเห็นรอยเชื่อมชัดเจน", correct: false, reason: "เศษสแลกร้อนอาจกระเด็นเข้าตาทำให้ตาบอดได้" },
+                    { text: "ใช้มือเปล่าแกะเศษสแลกออก", correct: false, reason: "สแลกร้อนสูงมากจะทำให้มือพองบาดเจ็บ" },
+                    { text: "เป่าลมด้วยปากโดยไม่ต้องสวมแว่นตา", correct: false, reason: "ฝุ่นและเศษสแลกจะปลิวเข้าตาและใบหน้า" }
+                ]
+            }
+        ];
+
+        // Hotspot Scenarios Data (Mission 2)
+        const hotspotData = {
+            1: {
+                title: "จุดเสี่ยงที่ 1: สวิตช์ตู้เชื่อมไฟฟ้าถูกเปิดค้างไว้ (Power Switch ON)",
+                question: "พบสวิตช์เครื่องเชื่อมเปิดค้างไว้ขณะยังไม่ได้เริ่มปฏิบัติงาน อันตรายหลักและวิธีแก้ไขคืออะไร?",
+                options: [
+                    { text: "สวิตช์ค้างไว้ไม่มีอันตราย / ปล่อยไว้อย่างนั้น", correct: false, reason: "การเปิดตู้ค้างไว้ทำให้เกิดแรงดันไฟฟ้า OCV 50-80V ค้างที่หัวจับลวด เสี่ยงต่อการเกิดไฟฟ้าดูด" },
+                    { text: "ปิดสวิตช์ตู้เชื่อม (Power OFF) ทันทีเมื่อหยุดพักหรือก่อนตรวจเช็กอุปกรณ์", correct: true, reason: "ถูกต้อง! ต้องตัดกระแสไฟก่อนทุกครั้งเพื่อป้องกันไฟดูดและการลัดวงจร" },
+                    { text: "เอาน้ำมารดที่ตู้เพื่อคลายความร้อน", correct: false, reason: "น้ำเป็นตัวนำไฟฟ้า จะทำให้เกิดไฟช็อตร้ายแรง!" }
+                ]
+            },
+            2: {
+                title: "จุดเสี่ยงที่ 2: ถังสารไวไฟ (ทินเนอร์) วางใกล้บริเวณเชื่อม",
+                question: "พบกระป๋องทินเนอร์วางห่างจากจุดเชื่อมไม่ถึง 1 เมตร ตามมาตรฐานความปลอดภัยต้องปฏิบัติอย่างไร?",
+                options: [
+                    { text: "ย้ายสารไวไฟออกนอกรัศมีอย่างน้อย 3-10 เมตร หรือเก็บในตู้จัดเก็บสารเคมีทนไฟ", correct: true, reason: "ถูกต้อง! สะเก็ดไฟจากการเชื่อมกระเด็นได้ไกล สารไวไฟอาจติดไฟและระเบิดได้" },
+                    { text: "หาผ้าแห้งมาคลุมกระป๋องไว้แล้วเชื่อมต่อได้", correct: false, reason: "ผ้าแห้งเป็นเชื้อเพลิงยิ่งเพิ่มความเสี่ยง" },
+                    { text: "ตั้งไว้ที่เดิมแต่ระวังไม่ให้สะเก็ดไฟกระเด็นไปโดน", correct: false, reason: "ไม่สามารถควบคุมทิศทางสะเก็ดไฟได้ 100%" }
+                ]
+            },
+            3: {
+                title: "จุดเสี่ยงที่ 3: สายเชื่อมมีรอยฉีกขาดเห็นเส้นทองแดง",
+                question: "ฉนวนสายเชื่อมฉีกขาดจนเห็นเนื้อทองแดงภายใน วิธีแก้ไขที่ถูกต้องและปลอดภัยคืออะไร?",
+                options: [
+                    { text: "ใช้เทปกาวใสพันรอบรอยฉีกขาด", correct: false, reason: "เทปกาวใสไม่ใช่ฉนวนไฟฟ้าทนความร้อน" },
+                    { text: "แจ้งครูผู้สอนเพื่อเปลี่ยนสายเชื่อมใหม่ หรือใช้เทปพันสายไฟชนิดทนความร้อนพันทับอย่างแน่นหนา", correct: true, reason: "ถูกต้อง! ป้องกันทองแดงสัมผัสชิ้นงานหรือร่างกายซึ่งทำให้เกิดไฟรั่วช็อต" },
+                    { text: "ใช้มือจับบริเวณที่สายขาดขณะเชื่อม", correct: false, reason: "เกิดไฟฟ้าดูดทันที!" }
+                ]
+            },
+            4: {
+                title: "จุดเสี่ยงที่ 4: ปากคีบสายดิน (Ground Clamp) ขั้วหลวมและสปริงล้า",
+                question: "หากหนีบสายดินไม่แน่นกับโต๊ะเชื่อม จะส่งผลกระทบอย่างไรตามหลักไฟฟ้า?",
+                options: [
+                    { text: "ทำให้วงจรไฟฟ้าหลวม เกิดความต้านทานสูง สะสมความร้อนจนสายละลาย และกระแสเชื่อมไม่สม่ำเสมอ", correct: true, reason: "ถูกต้อง! จุดสัมผัสหลวมจะเกิดความต้านทานไฟฟ้าสูงมาก (R สูง -> ความร้อนสูง)" },
+                    { text: "ช่วยประหยัดกระแสไฟของตู้เชื่อม", correct: false, reason: "ความต้านทานสูงทำให้สูญเสียพลังงานไฟฟ้าโดยเปล่าประโยชน์" },
+                    { text: "ไม่มีผลเสียใดๆ ต่อการเชื่อม", correct: false, reason: "ทำให้เกิดอาร์กไม่สม่ำเสมอและอันตราย" }
+                ]
+            },
+            5: {
+                title: "จุดเสี่ยงที่ 5: ค้อนเคาะสแลกด้ามหลวม & วางหัวจับลวดเชื่อมบนโต๊ะเหล็ก",
+                question: "พฤติกรรมในจุดนี้เสี่ยงต่ออันตรายอย่างไร และต้องปรับปรุงอย่างไร?",
+                options: [
+                    { text: "วางหัวจับลวดบนโต๊ะเหล็กขณะเปิดตู้จะเกิดการอาร์กช็อตทันที และด้ามค้อนหลวมอาจหลุดใส่ผู้อื่น", correct: true, reason: "ถูกต้อง! ต้องแขวนหัวจับลวดบนขอแขวนฉนวน และซ่อมด้ามค้อนให้แน่นหนา" },
+                    { text: "เป็นเรื่องปกติในโรงงาน ไม่จำเป็นต้องแก้ไข", correct: false, reason: "เป็นสาเหตุหลักของ Unsafe Act และ Unsafe Condition" },
+                    { text: "ทิ้งค้อนเคาะสแลกแล้วใช้มือบิดสแลกออกแทน", correct: false, reason: "สแลกร้อนบาดมือพองได้" }
+                ]
+            }
+        };
+
+        // Post-Test Questions Data (10 Items for K-Domain)
+        const rawQuizQuestions = [
+            {
+                id: 1,
+                q: "1. ตามกฎสถิติความปลอดภัย 85:15 สาเหตุหลักของอุบัติเหตุในโรงฝึกงานเชื่อมเกิดจากสิ่งใดมากที่สุด?",
+                choices: [
+                    { text: "การกระทำที่ไม่ปลอดภัยของผู้ปฏิบัติงาน (Unsafe Act)", correct: true },
+                    { text: "สภาพแวดล้อมและเครื่องมือชำรุด (Unsafe Condition)", correct: false },
+                    { text: "ความขัดข้องของระบบไฟฟ้าโรงเรียน", correct: false },
+                    { text: "ภัยธรรมชาติและการเปลี่ยนภูมิอากาศ", correct: false }
+                ],
+                explain: "85% ของอุบัติเหตุเกิดจาก Unsafe Act (การกระทำที่ไม่ปลอดภัย เช่น ไม่ใส่ PPE, ประมาท)"
+            },
+            {
+                id: 2,
+                q: "2. กระจกกรองแสง (Filter Lens) สำหรับงานเชื่อมไฟฟ้าด้วยลวดเชื่อมหุ้มฟลักซ์กระแสเชื่อม 100-140A ควรใช้เบอร์ใด?",
+                choices: [
+                    { text: "กระจกกรองแสง เบอร์ 10 - 12", correct: true },
+                    { text: "กระจกกรองแสง เบอร์ 5", correct: false },
+                    { text: "กระจกใสธรรมดา", correct: false },
+                    { text: "กระจกกรองแสง เบอร์ 2", correct: false }
+                ],
+                explain: "งานเชื่อม SMAW ช่วง 100-140A มาตรฐานความปลอดภัยกำหนดให้ใช้กระจกกรองแสงเบอร์ 10-12"
+            },
+            {
+                id: 3,
+                q: "3. แรงดันไฟฟ้าขณะยังไม่เกิดการอาร์ก (Open Circuit Voltage: OCV) ของตู้เชื่อมทั่วไป มีค่าประมาณเท่าใด?",
+                choices: [
+                    { text: "50 - 80 โวลต์", correct: true },
+                    { text: "12 - 24 โวลต์", correct: false },
+                    { text: "220 - 380 โวลต์", correct: false },
+                    { text: "500 - 1000 โวลต์", correct: false }
+                ],
+                explain: "แรงดัน OCV อยู่ในช่วง 50-80V ซึ่งสูงพอที่จะทำให้เกิดอันตรายถึงชีวิตหากร่างกายชื้นแฉะ"
+            },
+            {
+                id: 4,
+                q: "4. เหตุใดจึงต้องปรับขากางเกงให้คลุมขอบรองเท้านิรภัยเสมอขณะปฏิบัติงานเชื่อม?",
+                choices: [
+                    { text: "ป้องกันไม่ให้เม็ดสะเก็ดไฟกระเด็นตกเข้าไปขังภายในรองเท้า", correct: true },
+                    { text: "เพื่อความสวยงามตามแฟชั่นช่างเชื่อม", correct: false },
+                    { text: "ช่วยให้เดินได้อย่างรวดเร็วขึ้น", correct: false },
+                    { text: "ป้องกันไม่ให้ขากางเกงเปื้อนฝุ่นบนพื้น", correct: false }
+                ],
+                explain: "ขากางเกงที่คลุมขอบรองเท้าจะช่วยเบี่ยงทิศทางไม่ให้สะเก็ดไฟตกลงไปในรองเท้าไหม้เท้า"
+            },
+            {
+                id: 5,
+                q: "5. หากจุดต่อสายดิน (Ground Clamp) หนีบไม่แน่นกับชิ้นงาน จะส่งผลอย่างไรตามหลักไฟฟ้า?",
+                choices: [
+                    { text: "เกิดความต้านทานสูง สะสมความร้อน และกระแสเชื่อมไม่คงที่", correct: true },
+                    { text: "ทำให้ตู้เชื่อมประหยัดพลังงานมากขึ้น", correct: false },
+                    { text: "ทำให้รอยเชื่อมมีความแข็งแรงสูงขึ้น", correct: false },
+                    { text: "ช่วยลดรังสีอัลตราไวโอเลต", correct: false }
+                ],
+                explain: "ขั้วต่อหลวมทำให้ความต้านทาน (R) สูง เกิดความร้อนสะสมที่จุดต่อจนสายอาจละลาย"
+            },
+            {
+                id: 6,
+                q: "6. อุปกรณ์ใดจำเป็นที่สุดในการป้องกันเศษสแลกร้อนกระเด็นเข้าตาขณะเคาะทำความสะอาดรอยเชื่อม?",
+                choices: [
+                    { text: "แว่นตานิรภัยชนิดเลนส์ใส (Safety Glasses)", correct: true },
+                    { text: "หน้ากากเชื่อมเลนส์เข้มเบอร์ 11", correct: false },
+                    { text: "แว่นตากันแดด", correct: false },
+                    { text: "ผ้าปิดจมูก", correct: false }
+                ],
+                explain: "ขณะเคาะสแลกไม่มีรังสีจากการอาร์ก แต่มีเศษสแลกบิน ต้องใช้แว่นใสเพื่อมองเห็นรอยเชื่อมชัดเจนและกันกระเด็น"
+            },
+            {
+                id: 7,
+                q: "7. สารไวไฟประเภททินเนอร์หรือน้ำมันเชื้อเพลิง ควรวางห่างจากสถานีงานเชื่อมอย่างน้อยเท่าใด?",
+                choices: [
+                    { text: "อย่างน้อย 3 - 10 เมตร หรือเก็บในตู้ทนไฟ", correct: true },
+                    { text: "วางข้างตู้เชื่อมได้ไม่เกิน 50 เซนติเมตร", correct: false },
+                    { text: "วางไว้ใต้โต๊ะเชื่อมเหล็ก", correct: false },
+                    { text: "ระยะใดก็ได้ถ้ามีฝาปิด", correct: false }
+                ],
+                explain: "สะเก็ดไฟเชื่อมกระเด็นได้ไกล ต้องแยกสารไวไฟออกนอกรัศมีอย่างน้อย 3-10 เมตร"
+            },
+            {
+                id: 8,
+                q: "8. สิ่งแรกที่ต้องปฏิบัติก่อนการตรวจเช็กหรือปรับแต่งอุปกรณ์ภายในตู้เชื่อมคือข้อใด?",
+                choices: [
+                    { text: "ปิดสวิตช์ตู้เชื่อม (Power OFF) และสับเบรกเกอร์จ่ายไฟลง", correct: true },
+                    { text: "สวมถุงมือผ้าฝ้าย", correct: false },
+                    { text: "ใช้น้ำฉีดทำความสะอาดฝุ่น", correct: false },
+                    { text: "จับสายไฟด้วยมือเปล่าเพื่อทดสอบความร้อน", correct: false }
+                ],
+                explain: "ต้องตัดแหล่งจ่ายไฟฟ้า (Lockout/Tagout หรือ Power OFF) ก่อนสัมผัสอุปกรณ์ไฟฟ้าเสมอ"
+            },
+            {
+                id: 9,
+                q: "9. ข้อใดเป็นลักษณะของ Unsafe Condition (สภาพการณ์ที่ไม่ปลอดภัย)?",
+                choices: [
+                    { text: "ฉนวนสายไฟตู้เชื่อมฉีกขาดเห็นทองแดง", correct: true },
+                    { text: "นักเรียนไม่สวมถุงมือหนังขณะเชื่อม", correct: false },
+                    { text: "นักเรียนหยอกล้อกันขณะถือหัวเชื่อม", correct: false },
+                    { text: "การเชื่อมโดยไม่ปิดหน้ากาก", correct: false }
+                ],
+                explain: "สายไฟขาดเป็นสภาพการณ์ชำรุดของอุปกรณ์ (Unsafe Condition) ส่วนตัวเลือกอื่นเป็นพฤติกรรมคน (Unsafe Act)"
+            },
+            {
+                id: 10,
+                q: "10. ถุงมือที่เหมาะสมที่สุดสำหรับใช้ปฏิบัติงานเชื่อมโลหะด้วยลวดเชื่อมหุ้มฟลักซ์คือข้อใด?",
+                choices: [
+                    { text: "ถุงมือหนังสำหรับงานเชื่อมชนิดยาว", correct: true },
+                    { text: "ถุงมือผ้าถอดง่าย", correct: false },
+                    { text: "ถุงมือพลาสติกใส", correct: false },
+                    { text: "ถุงมือยางล้างจาน", correct: false }
+                ],
+                explain: "ถุงมือหนังทนความร้อนสูง ทนสะเก็ดไฟ และเป็นฉนวนป้องกันไฟฟ้าเบื้องต้น"
+            }
+        ];
+
+        /* ==========================================================================
+           APP STATE MANAGEMENT (WITH LOCALSTORAGE AUTO-SAVE)
+           ========================================================================== */
+        let appState = {
+            student: { name: '', no: '', classStr: '' },
+            ppeAttempts: {}, // { id: { firstChoiceIndex: null, isCorrectFirst: false, isSolved: false } }
+            hotspotAttempts: {}, // { id: { firstChoiceIndex: null, isCorrectFirst: false, isSolved: false } }
+            shuffledQuiz: [], // Shuffled questions & choices array stored persistently
+            userQuizAnswers: {}, // { qIndex: choiceIndex }
+            quizSubmitted: false,
+            affectiveRating: 4,
+            completedTimestamp: ''
+        };
+
+        // Initialize App on Load
+        window.onload = function() {
+            loadSavedState();
+            renderPpeScenarios();
+            updateHotspotChecklist();
+            renderQuizQuestions();
+            updateScoreReports();
+        };
+
+        // Save State to LocalStorage
+        function saveState() {
+            try {
+                localStorage.setItem('SMAW_LESSON2_STATE', JSON.stringify(appState));
+            } catch (e) {
+                console.error("LocalStorage save error", e);
+            }
+            updateGlobalProgress();
+            updateScoreReports();
+        }
+
+        // Load State from LocalStorage
+        function loadSavedState() {
+            const saved = localStorage.getItem('SMAW_LESSON2_STATE');
+            if (saved) {
+                try {
+                    appState = JSON.parse(saved);
+                    // Fill profile inputs
+                    document.getElementById('reg-name').value = appState.student.name || '';
+                    document.getElementById('reg-no').value = appState.student.no || '';
+                    document.getElementById('reg-class').value = appState.student.classStr || '';
+                    document.getElementById('self-eval-a').value = appState.affectiveRating || 4;
+                } catch(e) {
+                    console.error("Parse state error", e);
+                }
+            }
+
+            // Shuffle quiz if not already generated
+            if (!appState.shuffledQuiz || appState.shuffledQuiz.length === 0) {
+                appState.shuffledQuiz = generateShuffledQuiz();
+                saveState();
+            }
+        }
+
+        // Confirm Reset App Data
+        function confirmResetApp() {
+            if (confirm("คุณต้องการล้างข้อมูลการเรียนเพื่อเริ่มใหม่หรือไม่?\n(ข้อมูลคะแนนและคำตอบทั้งหมดจะถูกรีเซ็ต)")) {
+                localStorage.removeItem('SMAW_LESSON2_STATE');
+                location.reload();
+            }
+        }
+
+        // Save Profile info
+        function saveStudentProfile() {
+            appState.student.name = document.getElementById('reg-name').value.trim();
+            appState.student.no = document.getElementById('reg-no').value.trim();
+            appState.student.classStr = document.getElementById('reg-class').value.trim();
+            saveState();
+        }
+
+        function saveAffectiveRating() {
+            appState.affectiveRating = parseInt(document.getElementById('self-eval-a').value);
+            saveState();
+        }
+
+        // Tab Switcher
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+
+            // Button styling reset
+            const tabs = ['theory', 'sim', 'quiz', 'report'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`btn-tab-${t}`);
+                if (`tab-${t}` === tabId) {
+                    btn.className = "flex-1 py-2 rounded-lg bg-white text-blue-700 shadow-sm font-bold transition";
+                } else {
+                    btn.className = "flex-1 py-2 rounded-lg text-slate-600 hover:text-slate-900 transition";
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* ==========================================================================
+           MISSION 1: PPE SCENARIOS (FIRST-ATTEMPT SCORING)
+           ========================================================================== */
+        function renderPpeScenarios() {
+            const container = document.getElementById('ppe-scenarios-container');
+            container.innerHTML = '';
+
+            ppeData.forEach((sc, idx) => {
+                const state = appState.ppeAttempts[sc.id] || {};
+                const isSolved = state.isSolved || false;
+
+                let cardHtml = `
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-2 text-xs">
+                        <div class="font-bold text-slate-800">${sc.title}</div>
+                        <p class="text-slate-600 text-[11px]">${sc.question}</p>
+                        <div class="space-y-1.5 pt-1">
+                `;
+
+                sc.options.forEach((opt, oIdx) => {
+                    let btnClass = "w-full text-left p-2.5 rounded-lg border text-[11px] transition flex items-start justify-between ";
+                    let badge = "";
+
+                    if (isSolved) {
+                        if (opt.correct) {
+                            btnClass += "bg-emerald-50 border-emerald-300 text-emerald-900 font-medium";
+                            badge = `<span class="text-[10px] text-emerald-600 font-bold ml-1">✓ ถูกต้อง</span>`;
+                        } else if (state.firstChoiceIndex === oIdx && !state.isCorrectFirst) {
+                            btnClass += "bg-rose-50 border-rose-300 text-rose-800 opacity-80";
+                            badge = `<span class="text-[10px] text-rose-500 font-bold ml-1">✕ ตอบครั้งแรก</span>`;
+                        } else {
+                            btnClass += "bg-white border-slate-200 text-slate-400 opacity-60";
+                        }
+                    } else {
+                        btnClass += "bg-white border-slate-200 hover:border-blue-300 text-slate-700 hover:bg-blue-50/50";
+                    }
+
+                    cardHtml += `
+                        <button ${isSolved ? 'disabled' : ''} onclick="handlePpeSelection(${sc.id}, ${oIdx})" class="${btnClass}">
+                            <span>${opt.text}</span>
+                            ${badge}
+                        </button>
+                    `;
+                });
+
+                // Display Reason Explanation if solved
+                if (isSolved) {
+                    const isFirstCorrect = state.isCorrectFirst;
+                    cardHtml += `
+                        <div class="mt-2 p-2 rounded-lg text-[11px] ${isFirstCorrect ? 'bg-emerald-100/70 text-emerald-900' : 'bg-amber-100/70 text-amber-900'}">
+                            <strong>${isFirstCorrect ? '🎉 ได้ 1.00 คะแนนดิบ (ตอบถูกในครั้งแรก)' : '⚠️ ได้ 0.00 คะแนนดิบ (ตอบผิดในครั้งแรก)'}:</strong> ${sc.options.find(o => o.correct).reason}
+                        </div>
+                    `;
+                }
+
+                cardHtml += `</div></div>`;
+                container.innerHTML += cardHtml;
+            });
+        }
+
+        function handlePpeSelection(scenarioId, optionIdx) {
+            const sc = ppeData.find(s => s.id === scenarioId);
+            const selectedOpt = sc.options[optionIdx];
+
+            if (!appState.ppeAttempts[scenarioId]) {
+                appState.ppeAttempts[scenarioId] = {
+                    firstChoiceIndex: optionIdx,
+                    isCorrectFirst: selectedOpt.correct,
+                    isSolved: selectedOpt.correct
+                };
+            } else {
+                // Subsequent attempt if first was incorrect
+                if (selectedOpt.correct) {
+                    appState.ppeAttempts[scenarioId].isSolved = true;
+                }
+            }
+
+            saveState();
+            renderPpeScenarios();
+        }
+
+        /* ==========================================================================
+           MISSION 2: SVG HOTSPOTS (FIRST-ATTEMPT SCORING)
+           ========================================================================== */
+        let currentHotspotId = null;
+
+        function openHotspotModal(id) {
+            currentHotspotId = id;
+            const data = hotspotData[id];
+            const state = appState.hotspotAttempts[id] || {};
+            const isSolved = state.isSolved || false;
+
+            document.getElementById('hs-modal-title').innerText = data.title;
+            const container = document.getElementById('hs-modal-body');
+
+            let html = `<p class="text-xs text-slate-700 leading-relaxed font-medium">${data.question}</p><div class="space-y-2 pt-1">`;
+
+            data.options.forEach((opt, oIdx) => {
+                let btnClass = "w-full text-left p-2.5 rounded-xl border text-xs transition ";
+                if (isSolved) {
+                    if (opt.correct) {
+                        btnClass += "bg-emerald-50 border-emerald-300 text-emerald-900 font-semibold";
+                    } else if (state.firstChoiceIndex === oIdx && !state.isCorrectFirst) {
+                        btnClass += "bg-rose-50 border-rose-300 text-rose-800 opacity-70";
+                    } else {
+                        btnClass += "bg-slate-50 border-slate-200 text-slate-400 opacity-50";
+                    }
+                } else {
+                    btnClass += "bg-white border-slate-200 hover:border-purple-300 text-slate-700 hover:bg-purple-50/50";
+                }
+
+                html += `
+                    <button ${isSolved ? 'disabled' : ''} onclick="handleHotspotAnswer(${id}, ${oIdx})" class="${btnClass}">
+                        ${opt.text}
+                    </button>
+                `;
+            });
+
+            if (isSolved) {
+                const isFirstCorrect = state.isCorrectFirst;
+                html += `
+                    <div class="p-2.5 rounded-xl text-[11px] ${isFirstCorrect ? 'bg-emerald-100 text-emerald-900' : 'bg-amber-100 text-amber-900'}">
+                        <strong>${isFirstCorrect ? '🎉 ได้ 1 คะแนนดิบ (เลือกถูกตั้งแต่ครั้งแรก)' : '⚠️ ได้ 0 คะแนนดิบ (เลือกผิดในครั้งแรก)'}:</strong>
+                        <p class="mt-1">${data.options.find(o => o.correct).reason}</p>
+                    </div>
+                `;
+            }
+
+            html += `</div>`;
+            container.innerHTML = html;
+            document.getElementById('hotspot-modal').classList.remove('hidden');
+        }
+
+        function closeHotspotModal() {
+            document.getElementById('hotspot-modal').classList.add('hidden');
+        }
+
+        function handleHotspotAnswer(hsId, oIdx) {
+            const data = hotspotData[hsId];
+            const selectedOpt = data.options[oIdx];
+
+            if (!appState.hotspotAttempts[hsId]) {
+                appState.hotspotAttempts[hsId] = {
+                    firstChoiceIndex: oIdx,
+                    isCorrectFirst: selectedOpt.correct,
+                    isSolved: selectedOpt.correct
+                };
+            } else {
+                if (selectedOpt.correct) {
+                    appState.hotspotAttempts[hsId].isSolved = true;
+                }
+            }
+
+            saveState();
+            updateHotspotChecklist();
+            openHotspotModal(hsId); // re-render modal with feedback
+        }
+
+        function updateHotspotChecklist() {
+            for (let i = 1; i <= 5; i++) {
+                const el = document.getElementById(`hs-status-${i}`);
+                const state = appState.hotspotAttempts[i];
+                if (state && state.isSolved) {
+                    if (state.isCorrectFirst) {
+                        el.className = "py-1.5 rounded-lg border border-emerald-300 bg-emerald-100 text-emerald-800 font-bold";
+                        el.innerText = `${i}.✓ 1.0คะแนน`;
+                    } else {
+                        el.className = "py-1.5 rounded-lg border border-amber-300 bg-amber-100 text-amber-800 font-bold";
+                        el.innerText = `${i}.✓ 0.0คะแนน`;
+                    }
+                }
+            }
+        }
+
+        /* ==========================================================================
+           TAB 3: ANTI-CHEATING POST-TEST (SHUFFLED & HIDDEN FEEDBACK UNTIL SUBMIT)
+           ========================================================================== */
+        // Generate Shuffled Quiz (Fisher-Yates Shuffle)
+        function generateShuffledQuiz() {
+            let qList = JSON.parse(JSON.stringify(rawQuizQuestions));
+            // Shuffle Question order
+            for (let i = qList.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [qList[i], qList[j]] = [qList[j], qList[i]];
+            }
+            // Shuffle Choice order for each question
+            qList.forEach(q => {
+                for (let i = q.choices.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [q.choices[i], q.choices[j]] = [q.choices[j], q.choices[i]];
+                }
+            });
+            return qList;
+        }
+
+        function renderQuizQuestions() {
+            const container = document.getElementById('quiz-questions-container');
+            container.innerHTML = '';
+
+            const isSubmitted = appState.quizSubmitted;
+            const quizList = appState.shuffledQuiz || [];
+
+            quizList.forEach((q, qIdx) => {
+                const selectedChoiceIdx = appState.userQuizAnswers[qIdx];
+
+                let qHtml = `
+                    <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-3">
+                        <div class="font-bold text-xs text-slate-800 leading-snug">
+                            <span class="inline-block bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-[10px] mr-1">ข้อที่ ${qIdx + 1}</span>
+                            ${q.q.replace(/^\d+\.\s*/, '')}
+                        </div>
+                        <div class="space-y-2">
+                `;
+
+                const optionLabels = ['ก.', 'ข.', 'ค.', 'ง.'];
+                q.choices.forEach((c, cIdx) => {
+                    let btnClass = "w-full text-left p-2.5 rounded-xl border text-xs transition flex items-start space-x-2 ";
+
+                    if (isSubmitted) {
+                        if (c.correct) {
+                            btnClass += "bg-emerald-50 border-emerald-300 text-emerald-900 font-semibold";
+                        } else if (selectedChoiceIdx === cIdx && !c.correct) {
+                            btnClass += "bg-rose-50 border-rose-300 text-rose-800 font-medium";
+                        } else {
+                            btnClass += "bg-slate-50 border-slate-200 text-slate-400 opacity-60";
+                        }
+                    } else {
+                        if (selectedChoiceIdx === cIdx) {
+                            btnClass += "bg-blue-50 border-blue-500 text-blue-900 font-semibold ring-2 ring-blue-200";
+                        } else {
+                            btnClass += "bg-white border-slate-200 text-slate-700 hover:bg-slate-50";
+                        }
+                    }
+
+                    qHtml += `
+                        <button ${isSubmitted ? 'disabled' : ''} onclick="selectQuizAnswer(${qIdx}, ${cIdx})" class="${btnClass}">
+                            <span class="font-bold text-slate-500">${optionLabels[cIdx]}</span>
+                            <span class="flex-1">${c.text}</span>
+                        </button>
+                    `;
+                });
+
+                // Render Explanation ONLY if Submitted
+                if (isSubmitted) {
+                    const isUserCorrect = selectedChoiceIdx !== undefined && q.choices[selectedChoiceIdx].correct;
+                    qHtml += `
+                        <div class="p-2.5 rounded-xl text-[11px] ${isUserCorrect ? 'bg-emerald-100/80 text-emerald-900' : 'bg-rose-100/80 text-rose-900'} mt-2">
+                            <strong>${isUserCorrect ? '✓ เฉลยถูกต้อง (+1.00คะแนนดิบ)' : '✕ เฉลยผิด (0.00คะแนนดิบ)'}:</strong> ${q.explain}
+                        </div>
+                    `;
+                }
+
+                qHtml += `</div></div>`;
+                container.innerHTML += qHtml;
+            });
+
+            // Toggle Submit Button status
+            const subBtn = document.getElementById('btn-submit-quiz');
+            if (isSubmitted) {
+                subBtn.disabled = true;
+                subBtn.className = "w-full py-3 rounded-xl bg-slate-300 text-slate-600 font-bold text-xs cursor-not-allowed";
+                subBtn.innerHTML = `<i class="fa-solid fa-check-circle"></i><span>ส่งกระดาษคำตอบเรียบร้อยแล้ว</span>`;
+            }
+        }
+
+        function selectQuizAnswer(qIndex, choiceIndex) {
+            if (appState.quizSubmitted) return;
+            appState.userQuizAnswers[qIndex] = choiceIndex;
+            saveState();
+            renderQuizQuestions();
+        }
+
+        function submitPostTest() {
+            const totalQuestions = appState.shuffledQuiz.length;
+            const answeredCount = Object.keys(appState.userQuizAnswers).length;
+
+            if (answeredCount < totalQuestions) {
+                if (!confirm(`คุณทำข้อสอบไปเพียง ${answeredCount} จาก ${totalQuestions} ข้อ ต้องการส่งกระดาษคำตอบทันทีหรือไม่?`)) {
+                    return;
+                }
+            } else {
+                if (!confirm("ยืนยันการส่งกระดาษคำตอบแบบทดสอบหลังเรียน?")) {
+                    return;
+                }
+            }
+
+            appState.quizSubmitted = true;
+            appState.completedTimestamp = new Date().toLocaleString('th-TH');
+            saveState();
+            renderQuizQuestions();
+            switchTab('tab-report');
+        }
+
+        /* ==========================================================================
+           TAB 4: REPORT, SCORING MATH & SECURITY VERIFICATION HASH
+           ========================================================================== */
+        function calculateScores() {
+            // Raw S Score (PPE + Hotspots first attempts)
+            let sRaw = 0;
+            ppeData.forEach(sc => {
+                if (appState.ppeAttempts[sc.id] && appState.ppeAttempts[sc.id].isCorrectFirst) {
+                    sRaw += 1;
+                }
+            });
+            for (let i = 1; i <= 5; i++) {
+                if (appState.hotspotAttempts[i] && appState.hotspotAttempts[i].isCorrectFirst) {
+                    sRaw += 1;
+                }
+            }
+            // S Net Score (Max 1.00)
+            const sNet = parseFloat((sRaw / 9).toFixed(2));
+
+            // Raw K Score (Post test)
+            let kRaw = 0;
+            if (appState.shuffledQuiz && appState.shuffledQuiz.length > 0) {
+                appState.shuffledQuiz.forEach((q, idx) => {
+                    const userChoice = appState.userQuizAnswers[idx];
+                    if (userChoice !== undefined && q.choices[userChoice].correct) {
+                        kRaw += 1;
+                    }
+                });
+            }
+            // K Net Score (Max 1.00)
+            const kNet = parseFloat((kRaw / 10).toFixed(2));
+
+            const totalNet = parseFloat((sNet + kNet).toFixed(2));
+            const percentage = Math.round((totalNet / 2.00) * 100);
+            const isPassed = percentage >= 80;
+
+            return { sRaw, sNet, kRaw, kNet, totalNet, percentage, isPassed };
+        }
+
+        // Deterministic Verification Hash Generator
+        function generateChecksumHash(name, no, kNet, sNet, timestamp) {
+            const cleanName = (name || "ANONYMOUS").replace(/\s+/g, '');
+            const str = `${cleanName}|${no || "0"}|${kNet.toFixed(2)}|${sNet.toFixed(2)}|${timestamp || "NO_TIME"}|${SECRET_SALT}`;
+            let hashVal = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hashVal = ((hashVal << 5) - hashVal) + char;
+                hashVal |= 0; // Convert to 32bit int
+            }
+            const hexCode = Math.abs(hashVal).toString(16).toUpperCase().padStart(8, '0');
+            return `WELD-2026-${hexCode.substring(0, 4)}-${hexCode.substring(4, 8)}`;
+        }
+
+        function updateScoreReports() {
+            const scores = calculateScores();
+
+            // Profile
+            document.getElementById('rep-name').innerText = appState.student.name || 'ยังไม่ระบุ';
+            document.getElementById('rep-no').innerText = appState.student.no || '-';
+            document.getElementById('rep-class').innerText = appState.student.classStr || '-';
+
+            // Raw & Net
+            document.getElementById('rep-k-raw').innerText = `${scores.kRaw} / 10`;
+            document.getElementById('rep-k-net').innerText = `${scores.kNet.toFixed(2)} / 1.00`;
+            document.getElementById('rep-s-raw').innerText = `${scores.sRaw} / 9`;
+            document.getElementById('rep-s-net').innerText = `${scores.sNet.toFixed(2)} / 1.00`;
+            document.getElementById('rep-total-percent').innerText = `${scores.percentage}%`;
+            document.getElementById('rep-total-net').innerText = `${scores.totalNet.toFixed(2)} / 2.00`;
+
+            // Simulation Score Display inside Tab 2
+            document.getElementById('sim-score-display').innerText = `${scores.sRaw} / 9 คะแนนดิบ`;
+
+            // Status Badge
+            const badge = document.getElementById('pass-status-badge');
+            if (scores.isPassed) {
+                badge.className = "py-2.5 px-4 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 bg-emerald-100 text-emerald-900 border border-emerald-300";
+                badge.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600"></i><span>ผ่านเกณฑ์การประเมินวิชา (ร้อยละ ${scores.percentage} >= 80%)</span>`;
+            } else if (appState.quizSubmitted) {
+                badge.className = "py-2.5 px-4 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 bg-rose-100 text-rose-900 border border-rose-300";
+                badge.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600"></i><span>ไม่ผ่านเกณฑ์การประเมิน (ร้อยละ ${scores.percentage} < 80%)</span>`;
+            } else {
+                badge.className = "py-2.5 px-4 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 bg-amber-50 text-amber-800 border border-amber-200";
+                badge.innerHTML = `<i class="fa-solid fa-clock text-amber-600"></i><span>อยู่ระหว่างการทำแบบทดสอบและภารกิจ</span>`;
+            }
+
+            // Timestamp & Hash
+            const ts = appState.completedTimestamp || new Date().toLocaleString('th-TH');
+            document.getElementById('rep-timestamp').innerText = ts;
+
+            const checksum = generateChecksumHash(appState.student.name, appState.student.no, scores.kNet, scores.sNet, ts);
+            document.getElementById('rep-hash-code').innerText = checksum;
+        }
+
+        function updateGlobalProgress() {
+            const scores = calculateScores();
+            // 50% for S tasks + 50% for K Quiz
+            let progress = 0;
+            const ppeDone = Object.keys(appState.ppeAttempts).length;
+            const hsDone = Object.keys(appState.hotspotAttempts).length;
+            progress += ((ppeDone + hsDone) / 9) * 50;
+
+            if (appState.quizSubmitted) {
+                progress += 50;
+            } else {
+                const quizDone = Object.keys(appState.userQuizAnswers).length;
+                progress += (quizDone / 10) * 50;
+            }
+
+            document.getElementById('global-progress').style.width = `${Math.min(100, Math.round(progress))}%`;
+        }
+
+        // Copy Results to Clipboard for LINE Submission
+        function copyResultToClipboard() {
+            const scores = calculateScores();
+            const name = appState.student.name || 'ไม่ระบุชื่อ';
+            const no = appState.student.no || '-';
+            const cls = appState.student.classStr || '-';
+            const ts = appState.completedTimestamp || new Date().toLocaleString('th-TH');
+            const hash = document.getElementById('rep-hash-code').innerText;
+            const status = scores.isPassed ? "ผ่านเกณฑ์ (PASS)" : "ไม่ผ่านเกณฑ์ (FAIL)";
+
+            const summaryText =
+`[รายงานผลการเรียน - งานเชื่อมโลหะ ง 30285]
+แผนที่ 2: การป้องกันอุบัติเหตุและความปลอดภัย
+ชื่อ: ${name} เลขที่: ${no} ชั้น: ${cls}
+----------------------------------------
+- ด้านความรู้ (K): ${scores.kNet.toFixed(2)} / 1.00 (คะแนนดิบ ${scores.kRaw}/10)
+- ด้านทักษะ (S): ${scores.sNet.toFixed(2)} / 1.00 (คะแนนดิบ ${scores.sRaw}/9)
+- รวมคะแนนสุทธิ: ${scores.totalNet.toFixed(2)} / 2.00 (คิดเป็น ${scores.percentage}%)
+- ผลการประเมิน: ${status}
+- ประเมินตนเองด้าน A: ระดับ ${appState.affectiveRating}
+----------------------------------------
+เวลาทำเสร็จ: ${ts}
+รหัสตรวจสอบ (Security Hash):
+${hash}`;
+
+            // Safe Clipboard Copying
+            const tempInput = document.createElement('textarea');
+            tempInput.value = summaryText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            alert("คัดลอกรายงานผลคะแนนเรียบร้อยแล้ว!\nสามารถกดวาง (Paste) ส่งครูผู้สอนทาง LINE ได้ทันที");
+        }
+
+        /* ==========================================================================
+           TEACHER VERIFICATION TOOL MODAL & LOGIC
+           ========================================================================== */
+        function openTeacherVerifyModal() {
+            document.getElementById('teacher-verify-modal').classList.remove('hidden');
+        }
+
+        function closeTeacherVerifyModal() {
+            document.getElementById('teacher-verify-modal').classList.add('hidden');
+        }
+
+        function toggleCourseInfoModal() {
+            const modal = document.getElementById('course-info-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function verifyTeacherHash() {
+            const input = document.getElementById('tv-input').value.trim();
+            const resultBox = document.getElementById('tv-result');
+            resultBox.classList.remove('hidden');
+
+            if (!input) {
+                resultBox.className = "p-3 rounded-xl bg-amber-50 border border-amber-300 text-amber-900";
+                resultBox.innerHTML = "กรุณาวางข้อความหรือรหัสยืนยันก่อนกดตรวจสอบ";
+                return;
+            }
+
+            // Extract Name, No, K, S, Timestamp, Hash from text if full message pasted
+            let nameMatch = input.match(/ชื่อ:\s*([^\s\n]+)/);
+            let noMatch = input.match(/เลขที่:\s*([^\s\n]+)/);
+            let kMatch = input.match(/ด้านความรู้ \(K\):\s*([\d\.]+)/);
+            let sMatch = input.match(/ด้านทักษะ \(S\):\s*([\d\.]+)/);
+            let timeMatch = input.match(/เวลาทำเสร็จ:\s*([^\n]+)/);
+            let hashMatch = input.match(/WELD-2026-[A-Z0-9]{4}-[A-Z0-9]{4}/);
+
+            if (!hashMatch) {
+                resultBox.className = "p-3 rounded-xl bg-rose-50 border border-rose-300 text-rose-900";
+                resultBox.innerHTML = "❌ ไม่พบรูปแบบรหัสยืนยันความปลอดภัย WELD-2026-XXXX-XXXX";
+                return;
+            }
+
+            const inputHash = hashMatch[0];
+            const name = nameMatch ? nameMatch[1] : appState.student.name;
+            const no = noMatch ? noMatch[1] : appState.student.no;
+            const kNet = kMatch ? parseFloat(kMatch[1]) : 0;
+            const sNet = sMatch ? parseFloat(sMatch[1]) : 0;
+            const ts = timeMatch ? timeMatch[1].trim() : "";
+
+            // Re-calculate expected hash
+            const expectedHash = generateChecksumHash(name, no, kNet, sNet, ts);
+
+            if (inputHash === expectedHash) {
+                resultBox.className = "p-3 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900";
+                resultBox.innerHTML = `
+                    <div class="font-bold text-emerald-800 flex items-center space-x-1">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>รหัสถูกต้อง - คะแนนตรงตามระบบจัดเก็บ 100%</span>
+                    </div>
+                    <p class="text-[11px] mt-1 text-emerald-700">
+                        ยืนยันตัวตน: ${name || 'ผู้เรียน'} (เลขที่ ${no || '-'})<br>
+                        คะแนน K=${kNet.toFixed(2)}, S=${sNet.toFixed(2)} ไม่ถูกดัดแปลง
+                    </p>
+                `;
+            } else {
+                resultBox.className = "p-3 rounded-xl bg-rose-50 border border-rose-300 text-rose-900";
+                resultBox.innerHTML = `
+                    <div class="font-bold text-rose-800 flex items-center space-x-1">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>คำเตือน: ข้อมูลหรือรหัสยืนยันไม่ถูกต้อง!</span>
+                    </div>
+                    <p class="text-[11px] mt-1 text-rose-700">
+                        คะแนนในข้อความถูกแก้ไข หรือมีการสลับรหัสยืนยันของผู้อื่นมาส่ง
+                    </p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
